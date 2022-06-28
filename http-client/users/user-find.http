@@ -1,0 +1,8 @@
+@apiV1 = http://localhost:3000/api/v1/users
+
+GET {{apiV1}}
+Content-Type: application/json
+
+###
+GET {{apiV1}}/4
+Content-Type: application/json

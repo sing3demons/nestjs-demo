@@ -1,0 +1,14 @@
+@apiV1 = http://localhost:3000/api/v1/users
+
+GET {{apiV1}}
+Content-Type: application/json
+
+###
+POST {{apiV1}} 
+Content-Type: application/json
+
+{
+    "email": "admin@sing.com",
+    "fullName":"sing",
+    "password": "123456"
+}
