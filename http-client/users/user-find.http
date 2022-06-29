@@ -6,3 +6,7 @@ Content-Type: application/json
 ###
 GET {{apiV1}}/4
 Content-Type: application/json
+
+###
+GET {{apiV1}}?page=1&page_size=12
+Content-Type: application/json

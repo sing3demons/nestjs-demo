@@ -7,9 +7,16 @@ import {
   HttpException,
   HttpStatus,
   Patch,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { type } from 'os';
+
+interface q {
+  page: string;
+  page_size: string;
+}
 
 @Controller({
   version: '1',
@@ -19,8 +26,15 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll(@Query() query?: q) {
+    const [result, total] = await this.usersService.findAll(
+      +query.page,
+      +query.page_size,
+    );
+    return {
+      user: result,
+      total: total,
+    };
   }
 
   @Get(':id')
