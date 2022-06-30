@@ -3,24 +3,5 @@
 GET {{uri}} 
 ###
 
-POST {{uri}}
-Content-Type: application/json
-
-{
- "title":"title",
- "description":"desc"
-}
-
-###
-PATCH  {{uri}}/1
-Content-Type: application/json
-
-{
- "title":"title1",
- "description":"desc"
-}
-
-###
-
 DELETE   {{uri}}/1
 Content-Type: application/json

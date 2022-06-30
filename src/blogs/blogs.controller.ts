@@ -10,7 +10,6 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { query } from 'express';
 import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';

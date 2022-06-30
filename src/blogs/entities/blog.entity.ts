@@ -12,8 +12,8 @@ export class Blog {
   @Column({ name: 'desc' })
   description: string;
 
-  // @Column({ default: 'nopic.png' })
-  // photo: string;
+  @Column({ default: 'nopic.png' })
+  photo: string;
 
   @ManyToOne(() => User, (user) => user.blogs)
   user: User;
