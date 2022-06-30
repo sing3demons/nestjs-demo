@@ -5,7 +5,7 @@ POST {{apiV1}}
 Content-Type: application/json
 
 {
-    "email": "kp@sing.com",
-    "fullName":"sing",
+    "email": "admin@sing.com",
+    "fullname":"sing",
     "password": "123456"
 }

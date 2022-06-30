@@ -1,20 +1,50 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
+import { query } from 'express';
 import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
 
-@Controller('blogs')
+type q = {
+  page: string | number;
+  page_size: string | number;
+};
+
+@Controller({ version: '1', path: 'blogs' })
 export class BlogsController {
   constructor(private readonly blogsService: BlogsService) {}
 
   @Post()
   create(@Body() createBlogDto: CreateBlogDto) {
-    return this.blogsService.create(createBlogDto);
+    const result = this.blogsService.create(createBlogDto);
+
+    return result;
   }
 
   @Get()
-  findAll() {
-    return this.blogsService.findAll();
+  async findAll(@Query() query: q) {
+    let { page, page_size } = query;
+    if (!page) {
+      page = 1;
+    }
+    if (!page_size) {
+      page_size = 12;
+    }
+    const [result, total] = await this.blogsService.findAll(+page, +page_size);
+    return {
+      data: result,
+      total: total,
+    };
   }
 
   @Get(':id')
@@ -28,7 +58,12 @@ export class BlogsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.blogsService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const result = await this.blogsService.remove(+id);
+    if (result.affected === 0)
+      throw new HttpException('invalid', HttpStatus.BAD_REQUEST);
+    return {
+      message: 'success.',
+    };
   }
 }

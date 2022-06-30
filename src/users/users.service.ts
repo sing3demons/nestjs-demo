@@ -4,8 +4,6 @@ import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
-type quety = 'page' | 'page_size';
-
 @Injectable()
 export class UsersService {
   constructor(
@@ -14,13 +12,6 @@ export class UsersService {
   ) {}
 
   async findAll(page: number, size: number): Promise<[User[], number]> {
-    if (page === 0) {
-      page = 1;
-    }
-    if (size === 0) {
-      size = 12;
-    }
-
     return await this.userRepository.findAndCount({
       skip: (page - 1) * size,
       take: size,

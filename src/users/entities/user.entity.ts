@@ -1,23 +1,31 @@
 import { Blog } from 'src/blogs/entities/blog.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
-@Entity()
+@Entity({
+  name: 'user',
+  // synchronize: false
+})
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  fullName: string;
+  fullname: string;
 
-  @Column({ unique: true })
+  @Column({
+    type: 'varchar',
+    length: 100,
+    unique: true,
+  })
   email: string;
-
-  @Column({ default: 'Member' })
-  role: string;
 
   @Column({ select: false })
   password: string;
 
+  @Column({ default: 'member' })
+  permission: string;
+
+  //relation
   @OneToMany(() => Blog, (blog) => blog.user)
   blogs: Blog[];
 }

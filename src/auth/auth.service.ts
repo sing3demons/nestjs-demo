@@ -16,17 +16,14 @@ export class AuthService {
     try {
       const user = new User();
       user.email = createUserDto.email;
-      user.fullName = createUserDto.fullName;
+      user.fullname = createUserDto.fullname;
       user.password = await argon.hash(createUserDto.password);
 
-      const result = await this.authRepository.save(user);
-
-      return result;
+      return await this.authRepository.save(user);
     } catch (error) {
       if (error.errno === 1062) {
         throw new HttpException('conflict', HttpStatus.CONFLICT);
       }
-      console.log(error);
     }
   }
 }

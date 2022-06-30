@@ -2,13 +2,13 @@ version: '3.9'
 services:
 
   db:
-    image: mariadb
+    image: mysql
     restart: always
     ports:
       - 3306:3306
     environment:
-      MARIADB_ROOT_PASSWORD: p@ssw0rd
-      MARIADB_DATABASE: nestjs
+      - MYSQL_ROOT_PASSWORD=p@ssw0rd
+      - MYSQL_DATABASE=nestjs
     volumes:
       - "./data:/var/lib/mysql"
   adminer:

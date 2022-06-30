@@ -4,7 +4,7 @@ GET {{apiV1}}
 Content-Type: application/json
 
 ###
-GET {{apiV1}}/4
+GET {{apiV1}}/1
 Content-Type: application/json
 
 ###

@@ -11,12 +11,11 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { type } from 'os';
 
-interface q {
-  page: string;
-  page_size: string;
-}
+type q = {
+  page: any;
+  page_size: any;
+};
 
 @Controller({
   version: '1',
@@ -27,10 +26,17 @@ export class UsersController {
 
   @Get()
   async findAll(@Query() query?: q) {
-    const [result, total] = await this.usersService.findAll(
-      +query.page,
-      +query.page_size,
-    );
+    let { page, page_size } = query;
+    if (!page) {
+      page = 1;
+    }
+    if (!page_size) {
+      page_size = 12;
+    }
+
+    console.log(`page ${page}`);
+
+    const [result, total] = await this.usersService.findAll(+page, +page_size);
     return {
       user: result,
       total: total,
