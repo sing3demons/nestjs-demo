@@ -9,9 +9,11 @@ import { BlogsModule } from './blogs/blogs.module';
 import { Blog } from './blogs/entities/blog.entity';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ envFilePath: '.development.env' }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
@@ -19,8 +21,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'root',
-      password: 'p@ssw0rd',
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
       database: 'nestjs',
       entities: [User, Blog],
       synchronize: true,
