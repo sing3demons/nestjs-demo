@@ -29,18 +29,13 @@ export class AuthService {
       throw new NotFoundException('not found user');
     }
 
-    // console.log(password);
-
     const isVerify = await argon.verify(user.password, password);
     if (!isVerify) {
       throw new UnauthorizedException('username or password invalid');
     }
 
     const token = await this.jwtService.signAsync(
-      {
-        sub: user.id,
-        permission: user.permission,
-      },
+      { sub: user.id },
       { secret: process.env.JWT_SECRET },
     );
 

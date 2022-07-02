@@ -13,21 +13,26 @@ import { User } from 'src/users/entities/user.entity';
 @Injectable()
 export class BlogsService {
   constructor(
-    @InjectRepository(Blog) private blogRepository: Repository<Blog>,
+    @InjectRepository(Blog)
+    private blogRepository: Repository<Blog>,
   ) {}
 
-  async create(createBlogDto: CreateBlogDto) {
+  async create(createBlogDto: CreateBlogDto, user: User) {
     try {
-      const user = new User();
-      user.id = 3;
-
       const blog = new Blog();
       blog.title = createBlogDto.title;
       blog.description = createBlogDto.description;
-      blog.photo = await this.saveImageToDisk(createBlogDto.photo);
       blog.user = user;
+      console.log(blog.user);
 
-      return await this.blogRepository.save(blog);
+      blog.photo = await this.saveImageToDisk(createBlogDto.photo);
+
+      // return await this.blogRepository.save(blog);
+      await this.blogRepository.save(blog);
+      return {
+        photo: blog.photo,
+        message: 'เพิ่ม blog และอัปโหลดไฟล์เรียบร้อย',
+      };
     } catch (error) {
       console.log(error);
     }
@@ -59,18 +64,14 @@ export class BlogsService {
   async saveImageToDisk(baseImage: any) {
     //หา path จริงของโปรเจค
     const projectPath = path.resolve('./');
-    console.log(projectPath);
 
     //โฟลเดอร์และ path ของการอัปโหลด
     const uploadPath = `${projectPath}/public/images/`;
     if (existsSync(uploadPath)) {
       console.log('Directory exists!');
     } else {
-      console.log('Directory not found.');
       await promises.mkdir(uploadPath, { recursive: true });
     }
-
-    console.log(uploadPath);
 
     //หานามสกุลไฟล์
     const ext = baseImage.substring(

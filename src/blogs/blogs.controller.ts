@@ -9,7 +9,10 @@ import {
   Query,
   HttpException,
   HttpStatus,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
@@ -23,11 +26,10 @@ type q = {
 export class BlogsController {
   constructor(private readonly blogsService: BlogsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createBlogDto: CreateBlogDto) {
-    const result = this.blogsService.create(createBlogDto);
-
-    return result;
+  async create(@Body() createBlogDto: CreateBlogDto, @Request() req: any) {
+    return await this.blogsService.create(createBlogDto, req.user);
   }
 
   @Get()
