@@ -1,5 +1,11 @@
 import { User } from 'src/users/entities/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  AfterLoad,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Blog {
@@ -17,4 +23,11 @@ export class Blog {
 
   @ManyToOne(() => User, (user) => user.blogs)
   user: User;
+
+  @AfterLoad()
+  getUrl(): void {
+    this.photo = `${process.env?.HOST || 'http://localhost:3000'}/images/${
+      this.photo
+    }`;
+  }
 }

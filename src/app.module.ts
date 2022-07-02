@@ -16,6 +16,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({ envFilePath: '.development.env' }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
+      exclude: ['/api*'],
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
