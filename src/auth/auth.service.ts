@@ -1,4 +1,3 @@
-import { Login } from './../login';
 import {
   HttpException,
   HttpStatus,
@@ -21,16 +20,6 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.authRepository.findOneBy({ email });
-    if (user && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
-    }
-    console.log(`user: ${user.password}`);
-    return null;
-  }
-
   async login(email: string, password: string) {
     const user = await this.authRepository.findOne({
       select: ['id', 'permission', 'password', 'fullname'],
@@ -40,7 +29,7 @@ export class AuthService {
       throw new NotFoundException('not found user');
     }
 
-    console.log(password);
+    // console.log(password);
 
     const isVerify = await argon.verify(user.password, password);
     if (!isVerify) {
@@ -49,13 +38,13 @@ export class AuthService {
 
     const token = await this.jwtService.signAsync(
       {
-        user_id: user.id,
+        sub: user.id,
         permission: user.permission,
       },
       { secret: process.env.JWT_SECRET },
     );
 
-    return { acces_token: token };
+    return { token: token };
   }
 
   async create(createUserDto: CreateUserDto) {
