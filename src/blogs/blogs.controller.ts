@@ -13,7 +13,6 @@ import {
   Request,
 } from '@nestjs/common';
 import { AdminJwtAuthGuard } from 'src/auth/admin-jwt-auth.guard';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
@@ -54,11 +53,13 @@ export class BlogsController {
     return this.blogsService.findOne(+id);
   }
 
+  @UseGuards(AdminJwtAuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBlogDto: UpdateBlogDto) {
     return this.blogsService.update(+id, updateBlogDto);
   }
 
+  @UseGuards(AdminJwtAuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     const result = await this.blogsService.remove(+id);

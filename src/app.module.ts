@@ -10,9 +10,14 @@ import { Blog } from './blogs/entities/blog.entity';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10000,
+    }),
     ConfigModule.forRoot({ envFilePath: '.development.env' }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
