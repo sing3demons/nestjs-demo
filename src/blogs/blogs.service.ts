@@ -23,16 +23,10 @@ export class BlogsService {
       blog.title = createBlogDto.title;
       blog.description = createBlogDto.description;
       blog.user = user;
-      console.log(blog.user);
 
       blog.photo = await this.saveImageToDisk(createBlogDto.photo);
 
-      // return await this.blogRepository.save(blog);
-      await this.blogRepository.save(blog);
-      return {
-        photo: blog.photo,
-        message: 'เพิ่ม blog และอัปโหลดไฟล์เรียบร้อย',
-      };
+      return await this.blogRepository.save(blog);
     } catch (error) {
       console.log(error);
     }

@@ -12,6 +12,7 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
+import { AdminJwtAuthGuard } from 'src/auth/admin-jwt-auth.guard';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
@@ -26,7 +27,7 @@ type q = {
 export class BlogsController {
   constructor(private readonly blogsService: BlogsService) {}
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AdminJwtAuthGuard)
   @Post()
   async create(@Body() createBlogDto: CreateBlogDto, @Request() req: any) {
     return await this.blogsService.create(createBlogDto, req.user);
