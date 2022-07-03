@@ -1,9 +1,4 @@
-import {
-  ForbiddenException,
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { v4 } from 'uuid';
 import * as path from 'path';
@@ -55,12 +50,6 @@ export class BlogsService {
   }
 
   async update(id: number, updateBlogDto: UpdateBlogDto) {
-    // if (updateBlogDto.photo !== undefined) {
-    //   console.log('not ');
-
-    //   updateBlogDto.photo = await this.saveImageToDisk(updateBlogDto.photo);
-    // }
-
     if (updateBlogDto.photo === undefined) {
       const user = await this.findOne(id);
       updateBlogDto.photo = user.photo;
