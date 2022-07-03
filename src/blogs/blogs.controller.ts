@@ -16,11 +16,7 @@ import { AdminJwtAuthGuard } from 'src/auth/admin-jwt-auth.guard';
 import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
-
-type q = {
-  page: string | number;
-  page_size: string | number;
-};
+import { QueryParam } from './query-param';
 
 @Controller({ version: '1', path: 'blogs' })
 export class BlogsController {
@@ -33,7 +29,7 @@ export class BlogsController {
   }
 
   @Get()
-  async findAll(@Query() query: q) {
+  async findAll(@Query() query: QueryParam) {
     let { page, page_size } = query;
     if (!page) {
       page = 1;

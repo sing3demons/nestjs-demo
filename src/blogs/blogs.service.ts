@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { v4 } from 'uuid';
 import * as path from 'path';
@@ -45,9 +50,27 @@ export class BlogsService {
     if (!blog) {
       throw new HttpException('not found', HttpStatus.NOT_FOUND);
     }
+
+    return blog;
   }
 
   async update(id: number, updateBlogDto: UpdateBlogDto) {
+    // if (updateBlogDto.photo !== undefined) {
+    //   console.log('not ');
+
+    //   updateBlogDto.photo = await this.saveImageToDisk(updateBlogDto.photo);
+    // }
+
+    if (updateBlogDto.photo === undefined) {
+      const user = await this.findOne(id);
+      updateBlogDto.photo = user.photo;
+      console.log('undefined');
+    } else {
+      console.log('not ');
+
+      updateBlogDto.photo = await this.saveImageToDisk(updateBlogDto.photo);
+    }
+
     return await this.blogRepository.update(id, updateBlogDto);
   }
 

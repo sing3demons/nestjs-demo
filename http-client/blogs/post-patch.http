@@ -5,7 +5,7 @@ POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "admin2@sing.com",
+    "email": "admin@sing.com",
     "password": "123456"
 }
 
@@ -24,10 +24,12 @@ Authorization: Bearer {{token}}
 }
 
 ###
-PATCH  {{uri}}/1
+PATCH  {{uri}}/5
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
- "title":"title1",
+ "title":"title5",
+ "photo":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAMAAAAua3VzAAAAYFBMVEUxeMb///8qdcUhcsS8z+lDg8rP3fD6+/1Lhstum9SwxuUVbcLy9vujvuIdcMNRis6Us93r8Pjd5/RllNEAaMGbuOA3fMjk7PZdkM92oNWDqNkAY7/W4vKNrtvE1eyqwuSpa8QoAAAEx0lEQVR4nO2d2ZKjIBRAEVRUIq7BpdPJ///lQLoynRZcIBhMFedpajomp0DwynIBwX+q+JxG4AiwKD3H1a8ZePyjLpOWIuja7weIaJuU9UQS5+Aogg8gAjl+lqwb4tpJBenrX8k6oa591NCkfkjWCXJtMwe6W3JJ3By0HAW0x3fJ/JD34wOSC8natcYaNZcsD1zZAlQGoEoO1j9OgUkF4ta1xRptDM4Hr23ewHOQHraPfIBSEB38luQ35TFCsxWYawGPx+PxeDwej8fj8Xg8Ho/H4/F4PB6Px+PxeDwej8fj8XwkEIntAYxFAsbEfyAEX1vcB01RfxuhUfqdZ9e47qqq67pLfA1v5djzP5h7siQyRF6xB0lb3C7dKZDAVXcdWWu4oBMW8jduA0/XkCLU3BR+T3Rns6WI5pKn5q8k6UO8elFqVOW2JBHaoOhYkg7V+hWOJdtySzG6lUTnrRe5k6Tl5oucSaJk+0WuJCHY1macStLNN6Q7SRjNFyTG00b/dsmfx6Ky1eBLNibki9OCfszi7iFrLIllVGUypWruP9gqCjIeGHnslYSQElgMt+oFSX7fy0EYjSe/GqK5SA1GsuOZTKMdHlHC9IKNJVUoJGc/+i05lurdc4g0sU1JtF2SZFJdz+7wo6BsnEhKHw2ahcjW5qZeDUlwmUra07AmyerjS0JZsn/TzjSdkpSqO3zTRkQNSShJnt60yU9DUupSg6Dq37Jf8qV+kpdl/44a1ynJQZYMcM72r3KdfhIpJIPgMtC9NXUkW6nl/BRm3LT7Jo3QKslUKcmpv9kLY1RWJRU95a/mLWl309SSpOPCwAAOC7TTzaklqeyFnrgOcBdNPUkIpef339KMiz0qXU8SwGTZkl9f2H8IaUoCVHQrlqfyxUHz1yUBitbKMohtP4S0JfnrYLY2+CcNX79dEkAyrlb5YDUJi4Ekv4jd1qo8tdl8jCT5Y7xYGTfHg8UaN5QUkyThoqXNRCymkvzWpFG4NJdjMROLuaRoQdF5oT+yl2XpFcl7ac639Ku1Fv6apPiCryZWt6GTtdGglyV5AEdGdaVbS7RkQVL0m7lKMjxQSQraQdHQO1s5YyxJAtooBraPJskt5aK0lcXImiQg8hOoOJyk4oXXVh9kTxLKMXv/fkm2/PYC5ZDdVoyhM2CVD2ThVxUlaSu3ls7QXx6EyfzzGI1Tx8pBFyQyH3YjmatzeTjrYslRVzII6hSqxqYglZ+Mma3gXFuSF9C5p5ObE/LXCckxGB1KilzAJWtbQsVcKaKUfEU3xQRuZasvN5MU4Mvte0g543nmLcJJ0EuU8dg8SzOPR5HsnLyI6UliewW5n6S1/mdHydjm+N9OkherkxH7SIbM6jjqHpKn0fKEo84ajHR1jFeAM+vZwLVmxNggzyZPyfrZKTzjyA1NA6zrUteBWjBe67kVa6fuOpLZuJiZp8CFZfaXceWbKGHNmIcTU9zF2XcazQab9xS45iPp21bn/70C/ewlKNJh5AxpIVbLo+UDCFDqJC2zkOWBmtjtsOHTNP+MBNcfkSr8I5Kuf0b6+o84CODgRyo0+HMOp/iMYz6Oe2BK83Rgyv3omT2X55gA6eTomeAjDvERVHGeKnbHOYBFaf58HNI/HrQ/kdbuQUcAAAAASUVORK5CYII=",
  "description":"desc"
 }

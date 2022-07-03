@@ -3,5 +3,8 @@
 GET {{uri}} 
 ###
 
+GET {{uri}}/5
+###
+
 DELETE   {{uri}}/1
 Content-Type: application/json
